@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useRef, useState, useEffect } from "react";
 import {
   View,
@@ -176,6 +177,57 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     height: 200,
     elevation: 2,
+=======
+import React from "react";
+import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
+import { useUser } from "@clerk/clerk-expo";
+import Colors from "@/constants/Colors";
+import { Ionicons } from "@expo/vector-icons";
+
+const HomeHeader = () => {
+  const { user } = useUser();
+
+  return (
+    user && (
+      <View style={styles.container}>
+        <View style={styles.profileContainer}>
+          <Image source={{ uri: user?.imageUrl }} style={styles.imageStyle} />
+          <View>
+            <Text
+              style={{ color: Colors.dark, padding: 10, fontFamily: "mon" }}
+            >
+              {user.fullName}
+            </Text>
+          </View>
+        </View>
+        <View style={styles.actionRow}>
+          <TouchableOpacity>
+            <View style={styles.searchBtn}>
+              <Ionicons name="search" size={24} />
+              <View>
+                <Text style={{ color: Colors.grey, fontFamily: "mon" }}>
+                  Search
+                </Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+          <View style={{ width: 10 }} />
+          <TouchableOpacity style={styles.filterBtn}>
+            <Ionicons name="options-outline" size={24} />
+          </TouchableOpacity>
+        </View>
+      </View>
+    )
+  );
+};
+
+export default HomeHeader;
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: Colors.white,
+    height: 180,
+    marginBottom: 14,
+>>>>>>> f13aba4 (discountApplication)
     shadowColor: "#000",
     shadowOpacity: 0.1,
     shadowRadius: 6,
@@ -183,12 +235,19 @@ const styles = StyleSheet.create({
       width: 1,
       height: 10,
     },
+<<<<<<< HEAD
   },
+=======
+    borderBottomLeftRadius: 25,
+  },
+
+>>>>>>> f13aba4 (discountApplication)
   profileContainer: {
     display: "flex",
     flexDirection: "row",
     gap: 10,
     paddingLeft: 14,
+<<<<<<< HEAD
     paddingTop: 20,
     alignItems: "center",
   },
@@ -204,6 +263,14 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 18,
     fontFamily: "mon-b",
+=======
+    paddingTop: 45,
+  },
+  imageStyle: {
+    borderRadius: 99,
+    width: 45,
+    height: 45,
+>>>>>>> f13aba4 (discountApplication)
   },
   actionRow: {
     flexDirection: "row",
@@ -211,12 +278,22 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 14,
     marginTop: 14,
+<<<<<<< HEAD
   },
+=======
+    marginBottom: 14,
+  },
+
+>>>>>>> f13aba4 (discountApplication)
   searchBtn: {
     backgroundColor: "#fff",
     flexDirection: "row",
     gap: 10,
+<<<<<<< HEAD
     padding: 12,
+=======
+    padding: 14,
+>>>>>>> f13aba4 (discountApplication)
     alignItems: "center",
     width: 280,
     borderWidth: StyleSheet.hairlineWidth,
@@ -237,6 +314,7 @@ const styles = StyleSheet.create({
     borderColor: "#A2A0A2",
     borderRadius: 24,
   },
+<<<<<<< HEAD
   categoryText: {
     fontSize: 14,
     fontFamily: "mon-sb",
@@ -264,3 +342,6 @@ const styles = StyleSheet.create({
 });
 
 export default HomeHeader;
+=======
+});
+>>>>>>> f13aba4 (discountApplication)

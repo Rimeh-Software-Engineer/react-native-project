@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {
   View,
   Text,
@@ -111,4 +112,17 @@ const styles = StyleSheet.create({
   },
 });
 
+=======
+import { View, Text } from "react-native";
+import React from "react";
+
+const Page = () => {
+  return (
+    <View>
+      <Text>Page</Text>
+    </View>
+  );
+};
+
+>>>>>>> f13aba4 (discountApplication)
 export default Page;

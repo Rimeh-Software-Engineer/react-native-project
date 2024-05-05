@@ -4,5 +4,8 @@ export default {
   grey: "#5E5D5E",
   dark: "#1A1A1A",
   white: "#ffffff",
+<<<<<<< HEAD
   medium: "#9F9AA1",
+=======
+>>>>>>> f13aba4 (discountApplication)
 };

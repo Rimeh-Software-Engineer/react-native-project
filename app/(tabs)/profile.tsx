@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {
   View,
   Text,
@@ -183,10 +184,28 @@ const Page = () => {
       <TouchableOpacity style={styles.logoutButton} onPress={signOut}>
         <Text style={styles.logoutButtonText}>Log Out</Text>
       </TouchableOpacity>
+=======
+import { View, Text, Button } from "react-native";
+import React from "react";
+import { useAuth } from "@clerk/clerk-expo";
+import { Link } from "expo-router";
+
+const Page = () => {
+  const { signOut, isSignedIn } = useAuth();
+  return (
+    <View>
+      {isSignedIn && <Button title="Log Out" onPress={() => signOut()} />}
+      {!isSignedIn && (
+        <Link href={"/(modals)/login"}>
+          <Text>Login</Text>
+        </Link>
+      )}
+>>>>>>> f13aba4 (discountApplication)
     </View>
   );
 };
 
+<<<<<<< HEAD
 const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: "row",
@@ -235,4 +254,6 @@ const styles = StyleSheet.create({
   },
 });
 
+=======
+>>>>>>> f13aba4 (discountApplication)
 export default Page;
