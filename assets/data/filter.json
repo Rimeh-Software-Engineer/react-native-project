@@ -1,0 +1,31 @@
+[
+  {
+    "name": "Electronics",
+    "count": 9
+  },
+  {
+    "name": "Books & Media",
+    "count": 100
+  },
+  {
+    "name": "Toys & Games",
+    "count": 99
+  },
+  {
+    "name": "Clothing & Accessories",
+    "count": 130
+  },
+  {
+    "name": "Home & Furniture",
+    "count": 15
+  },
+
+  {
+    "name": "Beauty & Personal Care",
+    "count": 44
+  },
+  {
+    "name": "Sports & Outdoors",
+    "count": 606
+  }
+]
