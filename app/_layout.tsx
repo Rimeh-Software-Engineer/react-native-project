@@ -3,6 +3,7 @@ import { useFonts } from "expo-font";
 import { Stack, useRouter } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { StatusBar } from "expo-status-bar";
@@ -12,11 +13,16 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 =======
 import { useEffect } from "react";
+=======
+import { useEffect, useState } from "react";
+>>>>>>> 185fb92 (mywork)
 import { TouchableOpacity } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import * as SecureStore from "expo-secure-store";
-import { ClerkProvider, useAuth } from "@clerk/clerk-expo";
+import Colors from "@/constants/Colors";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
+<<<<<<< HEAD
 const EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY =
   process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 const tokenCache = {
@@ -37,6 +43,8 @@ const tokenCache = {
   },
 };
 >>>>>>> f13aba4 (discountApplication)
+=======
+>>>>>>> 185fb92 (mywork)
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -74,6 +82,9 @@ export default function RootLayout() {
 
   return (
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 185fb92 (mywork)
     <GestureHandlerRootView>
       <StatusBar
         style="light"
@@ -81,6 +92,7 @@ export default function RootLayout() {
         backgroundColor="transparent"
         translucent={true}
       />
+<<<<<<< HEAD
       <RootLayoutNav />
     </GestureHandlerRootView>
 =======
@@ -91,12 +103,19 @@ export default function RootLayout() {
       <RootLayoutNav />
     </ClerkProvider>
 >>>>>>> f13aba4 (discountApplication)
+=======
+      <RootLayoutNav />
+    </GestureHandlerRootView>
+>>>>>>> 185fb92 (mywork)
   );
 }
 
 function RootLayoutNav() {
   const router = useRouter();
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 185fb92 (mywork)
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   // Mockup authentication check function
@@ -113,9 +132,12 @@ function RootLayoutNav() {
   useEffect(() => {
     checkAuth();
   }, []);
+<<<<<<< HEAD
 =======
   const { isLoaded, isSignedIn } = useAuth();
 >>>>>>> f13aba4 (discountApplication)
+=======
+>>>>>>> 185fb92 (mywork)
   useEffect(() => {
     if (isSignedIn) {
       router.replace("/(tabs)");
@@ -125,6 +147,9 @@ function RootLayoutNav() {
   }, [isLoaded, isSignedIn]);
   return (
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 185fb92 (mywork)
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Stack>
         {!isSignedIn && (
@@ -238,6 +263,7 @@ function RootLayoutNav() {
 
       <Stack.Screen />
     </GestureHandlerRootView>
+<<<<<<< HEAD
 =======
     <Stack>
       <Stack.Screen
@@ -260,5 +286,7 @@ function RootLayoutNav() {
       <Stack.Screen name="listing/[id]" options={{ headerTitle: "" }} />
     </Stack>
 >>>>>>> f13aba4 (discountApplication)
+=======
+>>>>>>> 185fb92 (mywork)
   );
 }

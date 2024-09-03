@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 185fb92 (mywork)
 import React, { useRef, useState, useEffect } from "react";
 import {
   View,
@@ -11,6 +14,7 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
 import { Link } from "expo-router";
 import axios from "axios";
+<<<<<<< HEAD
 import Colors from "@/constants/Colors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import BASE_URL from "@/services/config";
@@ -181,53 +185,181 @@ const styles = StyleSheet.create({
 import React from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import { useUser } from "@clerk/clerk-expo";
+=======
+>>>>>>> 185fb92 (mywork)
 import Colors from "@/constants/Colors";
-import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import BASE_URL from "@/services/config";
 
-const HomeHeader = () => {
-  const { user } = useUser();
+interface Category {
+  name: string;
+  icon: string;
+}
+
+interface Props {
+  onCategoryChanged: (category: string) => void;
+  onSortChanged: () => void;
+  isSorted: boolean;
+}
+
+const HomeHeader = ({
+  onCategoryChanged,
+  onSortChanged,
+  isSorted = false,
+}: Props) => {
+  const [user, setUser] = useState<{ name: string }>({ name: "" });
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const scrollRef = useRef<ScrollView>(null);
+  const itemsRef = useRef<Array<TouchableOpacity | null>>([]);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userId = await AsyncStorage.getItem("userId");
+        const token = await AsyncStorage.getItem("userToken");
+        console.log("Retrieved User ID:", userId);
+        console.log("Retrieved Token:", token);
+        if (userId && token) {
+          const response = await axios.get(`${BASE_URL}/api/users/${userId}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          console.log("User data:", response.data);
+          setUser(response.data);
+        }
+      } catch (error) {
+        if (error.response) {
+          console.error("Backend error:", error.response.data);
+        } else {
+          console.error("Network error or unexpected error:", error);
+        }
+      }
+    };
+
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/api/categories`);
+        setCategories(response.data);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchUserData();
+    fetchCategories();
+  }, []);
+
+  const selectCategory = (index: number) => {
+    const selected = itemsRef.current[index];
+    setActiveIndex(index);
+    selected?.measureLayout(
+      scrollRef.current!,
+      (x, y) => {
+        scrollRef.current?.scrollTo({ x: x - 16, y: 0, animated: true });
+      },
+      () => {}
+    );
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    onCategoryChanged(categories[index].name);
+  };
+
+  const userInitial = user.name ? user.name.charAt(0).toUpperCase() : "";
 
   return (
-    user && (
-      <View style={styles.container}>
-        <View style={styles.profileContainer}>
-          <Image source={{ uri: user?.imageUrl }} style={styles.imageStyle} />
-          <View>
-            <Text
-              style={{ color: Colors.dark, padding: 10, fontFamily: "mon" }}
-            >
-              {user.fullName}
-            </Text>
-          </View>
+    <View style={styles.container}>
+      <View style={styles.profileContainer}>
+        <View style={styles.avatar}>
+          <Text style={styles.avatarText}>{userInitial}</Text>
         </View>
-        <View style={styles.actionRow}>
-          <TouchableOpacity>
-            <View style={styles.searchBtn}>
-              <Ionicons name="search" size={24} />
-              <View>
-                <Text style={{ color: Colors.grey, fontFamily: "mon" }}>
-                  Search
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-          <View style={{ width: 10 }} />
-          <TouchableOpacity style={styles.filterBtn}>
-            <Ionicons name="options-outline" size={24} />
-          </TouchableOpacity>
+        <View>
+          <Text style={{ color: Colors.dark, padding: 10, fontFamily: "mon" }}>
+            {user.name || "Loading..."}
+          </Text>
         </View>
       </View>
-    )
+      <View style={styles.actionRow}>
+        <TouchableOpacity>
+          <View style={styles.searchBtn}>
+            <Ionicons name="search" size={24} />
+            <Text style={{ color: Colors.grey, fontFamily: "mon" }}>
+              Search
+            </Text>
+          </View>
+        </TouchableOpacity>
+        <View style={{ width: 10 }} />
+        {/* <Link href={"/(modals)/filter"} asChild> 
+         
+        </Link> */}
+        <TouchableOpacity
+          style={[
+            styles.filterBtn,
+            isSorted && { backgroundColor: Colors.primary },
+          ]}
+          onPress={() => {
+            onSortChanged();
+          }}
+        >
+          <Ionicons name="options-outline" size={24} />
+        </TouchableOpacity>
+      </View>
+      <ScrollView
+        ref={scrollRef}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{
+          alignItems: "center",
+          gap: 20,
+          paddingHorizontal: 16,
+          backgroundColor: "#fff",
+          paddingTop: 10,
+        }}
+      >
+        {categories.map((item, index) => (
+          <TouchableOpacity
+            ref={(el) => (itemsRef.current[index] = el)}
+            key={index}
+            style={
+              activeIndex === index
+                ? styles.categoriesBtnActive
+                : styles.categoriesBtn
+            }
+            onPress={() => selectCategory(index)}
+          >
+            <MaterialIcons
+              name={item.icon as any}
+              size={24}
+              color={activeIndex === index ? "#000" : Colors.grey}
+            />
+            <Text
+              style={
+                activeIndex === index
+                  ? styles.categoryTextActive
+                  : styles.categoryText
+              }
+            >
+              {item.name}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+    </View>
   );
 };
 
-export default HomeHeader;
 const styles = StyleSheet.create({
   container: {
+<<<<<<< HEAD
     backgroundColor: Colors.white,
     height: 180,
     marginBottom: 14,
 >>>>>>> f13aba4 (discountApplication)
+=======
+    backgroundColor: "#fff",
+    height: 200,
+    elevation: 2,
+>>>>>>> 185fb92 (mywork)
     shadowColor: "#000",
     shadowOpacity: 0.1,
     shadowRadius: 6,
@@ -236,17 +368,22 @@ const styles = StyleSheet.create({
       height: 10,
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
   },
 =======
     borderBottomLeftRadius: 25,
   },
 
 >>>>>>> f13aba4 (discountApplication)
+=======
+  },
+>>>>>>> 185fb92 (mywork)
   profileContainer: {
     display: "flex",
     flexDirection: "row",
     gap: 10,
     paddingLeft: 14,
+<<<<<<< HEAD
 <<<<<<< HEAD
     paddingTop: 20,
     alignItems: "center",
@@ -265,12 +402,27 @@ const styles = StyleSheet.create({
     fontFamily: "mon-b",
 =======
     paddingTop: 45,
+=======
+    paddingTop: 20,
+    alignItems: "center",
+>>>>>>> 185fb92 (mywork)
   },
-  imageStyle: {
-    borderRadius: 99,
+  avatar: {
     width: 45,
     height: 45,
+<<<<<<< HEAD
 >>>>>>> f13aba4 (discountApplication)
+=======
+    borderRadius: 45 / 2,
+    backgroundColor: Colors.primary,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  avatarText: {
+    color: "#fff",
+    fontSize: 18,
+    fontFamily: "mon-b",
+>>>>>>> 185fb92 (mywork)
   },
   actionRow: {
     flexDirection: "row",
@@ -279,21 +431,29 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     marginTop: 14,
 <<<<<<< HEAD
+<<<<<<< HEAD
   },
 =======
     marginBottom: 14,
   },
 
 >>>>>>> f13aba4 (discountApplication)
+=======
+  },
+>>>>>>> 185fb92 (mywork)
   searchBtn: {
     backgroundColor: "#fff",
     flexDirection: "row",
     gap: 10,
 <<<<<<< HEAD
+<<<<<<< HEAD
     padding: 12,
 =======
     padding: 14,
 >>>>>>> f13aba4 (discountApplication)
+=======
+    padding: 12,
+>>>>>>> 185fb92 (mywork)
     alignItems: "center",
     width: 280,
     borderWidth: StyleSheet.hairlineWidth,
@@ -315,6 +475,9 @@ const styles = StyleSheet.create({
     borderRadius: 24,
   },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 185fb92 (mywork)
   categoryText: {
     fontSize: 14,
     fontFamily: "mon-sb",
@@ -342,6 +505,9 @@ const styles = StyleSheet.create({
 });
 
 export default HomeHeader;
+<<<<<<< HEAD
 =======
 });
 >>>>>>> f13aba4 (discountApplication)
+=======
+>>>>>>> 185fb92 (mywork)

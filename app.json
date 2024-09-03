@@ -32,11 +32,16 @@
     "plugins": [
       "expo-router",
 <<<<<<< HEAD
+<<<<<<< HEAD
       "expo-secure-store",
       "expo-font"
 =======
       "expo-secure-store"
 >>>>>>> f13aba4 (discountApplication)
+=======
+      "expo-secure-store",
+      "expo-font"
+>>>>>>> 185fb92 (mywork)
     ],
     "experiments": {
       "typedRoutes": true,
