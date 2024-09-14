@@ -1,10 +1,14 @@
 import axios from "axios";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 const BASE_URL = "http:///192.168.76.173:3000/api";
 =======
 const BASE_URL = "http://192.168.1.24:3000/api";
 >>>>>>> 185fb92 (mywork)
+=======
+const BASE_URL = "http:///192.168.76.173:3000/api";
+>>>>>>> d3478e5 (initial commit)
 
 // Add a new comment
 const addComment = async (commentData) => {

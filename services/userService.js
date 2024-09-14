@@ -1,10 +1,14 @@
 import axios from "axios";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 const BASE_URL = "http:///192.168.76.173:3000/api/users";
 =======
 const BASE_URL = "http://192.168.1.24:3000/api/users";
 >>>>>>> 185fb92 (mywork)
+=======
+const BASE_URL = "http:///192.168.76.173:3000/api/users";
+>>>>>>> d3478e5 (initial commit)
 
 // Fetch all users
 const getUsers = async () => {
