@@ -235,7 +235,8 @@ const DetailsPage = () => {
                         : "N/A"}
                     </Text>
                   </View>
-                  <Text style={styles.comments}>{commentsCount} Comments</Text>
+
+                  {/* <Text style={styles.comments}>{commentsCount} Comments</Text> */}
                 </View>
                 <View style={styles.divider} />
 

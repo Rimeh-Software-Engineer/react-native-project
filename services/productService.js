@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://192.168.1.24:3000/api";
+const BASE_URL = "http:///192.168.76.173:3000/api";
 
 // Add a new product
 const addProduct = async (productData) => {
